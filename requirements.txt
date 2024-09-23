@@ -1,5 +1,6 @@
 pip-tools
 pysqlite3-wheels
+pysqlite3-binary
 pysqlite3
 langchain_nvidia_ai_endpoints==0.2.2
 langchain==0.2.0
