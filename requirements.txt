@@ -12,7 +12,7 @@ langchain_text_splitters==0.3.0
 Markdown==3.7
 numpy==1.26.4
 openai==1.47.0
-openai_whisper==20231117
+openai_whisper
 pandas==2.2.3
 pydub==0.25.1
 pymupdf4llm==0.0.17
