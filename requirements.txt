@@ -1,10 +1,10 @@
 beautifulsoup4==4.12.3
 edge_tts==6.1.12
 gTTS==2.5.3
-langchain==0.3.0
+langchain==0.3.0  # Or a compatible version
 langchain_chroma==0.1.4
 langchain_community==0.3.0
-langchain_core==0.3.5
+langchain_core==0.2.22  # Downgraded to match langchain-nvidia-ai-endpoints
 langchain_nvidia_ai_endpoints==0.2.2
 langchain_openai==0.2.0
 langchain_text_splitters==0.3.0
@@ -23,3 +23,5 @@ SpeechRecognition==3.10.4
 streamlit==1.38.0
 torch==2.4.1
 whisper==1.1.10
+pipdeptree
+pipdeptree > dependency_tree.txt
