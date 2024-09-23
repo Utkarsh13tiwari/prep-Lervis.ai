@@ -1,5 +1,5 @@
 pip-tools
-sqlite3>=3.35.0
+sqlite3
 pysqlite3
 langchain_nvidia_ai_endpoints==0.2.2
 langchain==0.2.0
