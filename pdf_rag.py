@@ -18,7 +18,6 @@ import streamlit as st
 
 openai = st.secrets.db_credentials.openai
 nvidia = st.secrets.db_credentials.nvidia
-langchain = st.secrets.db_credentials.langchain
 
 llm = ChatNVIDIA(base_url="http://localhost:8000/v1",model="meta/llama3-70b-instruct")
 
