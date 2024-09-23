@@ -1,3 +1,4 @@
+pip-tools
 beautifulsoup4==4.12.3
 edge_tts==6.1.12
 gTTS==2.5.3
