@@ -30,3 +30,5 @@ torch==2.4.1
 whisper==1.1.10
 pipdeptree
 streamlit_mic_recorder
+ffmpeg-python
+ffmpeg
