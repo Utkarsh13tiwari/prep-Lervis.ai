@@ -38,6 +38,12 @@ tavily = st.secrets.db_credentials.tavily
 api = st.secrets.db_credentials.api
 search_engine = st.secrets.db_credentials.search_engine
 
+langchain_api = st.secrets.db_credentials.langchain_api
+LANGCHAIN_TRACING_V2=true
+LANGCHAIN_ENDPOINT="https://api.smith.langchain.com"
+LANGCHAIN_API_KEY=langchain_api
+LANGCHAIN_PROJECT="prep-w-lervis"
+
 
 ICON_BLUE = "Lervis_logo.png"
 
