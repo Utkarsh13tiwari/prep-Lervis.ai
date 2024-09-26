@@ -265,8 +265,7 @@ st.markdown(
     <div class="navbar">
         <div class="title">Interview Preparation Assistant - Prep W Lervis</div>
         <div>
-            <a href="#contact">Contact</a>
-            <a href="#Profile">Profile</a>
+            <a href="#contact">About</a>
         </div>
     </div>
     <div class="content">
