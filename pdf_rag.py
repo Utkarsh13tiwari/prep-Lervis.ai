@@ -19,7 +19,7 @@ import streamlit as st
 openai = st.secrets.db_credentials.openai
 nvidia = st.secrets.db_credentials.nvidia
 
-llm = ChatNVIDIA(base_url="https://prep-w-lervis.streamlit.app/",model="meta/llama3-70b-instruct")
+llm = ChatNVIDIA(model="meta/llama3-70b-instruct", nvidia_api_key = nvidia)
 
 def pdf_rag(file_path, user_input):
     #loader = file_path #PyPDFLoader(file_path)
