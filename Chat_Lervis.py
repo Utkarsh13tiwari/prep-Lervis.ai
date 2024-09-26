@@ -282,8 +282,8 @@ def google_search(query, site=None):
     
     params = {
         'q': query,
-        'key': os.environ["API_KEY"],
-        'cx': os.environ["SEARCH_ENGINE_ID"]
+        'key': api,
+        'cx': search_engine
     }
     response = requests.get(url, params=params)
     results = response.json()
