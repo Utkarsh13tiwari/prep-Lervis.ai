@@ -409,9 +409,6 @@ with col1:
     
     options = {
     'LeetCode': 'https://bishalsarang.github.io/Leetcode-Questions/out.html',
-    'Geeks 4 Geeks': 'https://www.geeksforgeeks.org/',
-    'HackerEarth': 'https://www.hackerearth.com/',
-    'HackerRank': 'https://www.hackerrank.com/',
     'Job Description': None
     }
 
