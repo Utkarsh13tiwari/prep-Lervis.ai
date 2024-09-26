@@ -20,9 +20,10 @@ openai = st.secrets.db_credentials.openai
 nvidia = st.secrets.db_credentials.nvidia
 
 langchain_api = st.secrets.db_credentials.langchain_api
+
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
-LANGCHAIN_ENDPOINT="https://api.smith.langchain.com"
-LANGCHAIN_API_KEY=langchain_api
+os.environ["LANGCHAIN_ENDPOINT"]="https://api.smith.langchain.com"
+os.environ["LANGCHAIN_API_KEY"]= langchain_api
 os.environ['LANGCHAIN_PROJECT']= "Prep W Lervis"
 
 
