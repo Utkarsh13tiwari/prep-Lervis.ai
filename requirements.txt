@@ -29,3 +29,4 @@ streamlit==1.38.0
 torch==2.4.1
 whisper==1.1.10
 pipdeptree
+streamlit_mic_recorder
