@@ -50,7 +50,7 @@ openai = st.secrets.db_credentials.openai
 nvidia = st.secrets.db_credentials.nvidia
 
 langchain_api = st.secrets.db_credentials.langchain_api
-LANGCHAIN_TRACING_V2=true
+LANGCHAIN_TRACING_V2= True
 LANGCHAIN_ENDPOINT="https://api.smith.langchain.com"
 LANGCHAIN_API_KEY=langchain_api
 LANGCHAIN_PROJECT="prep-w-lervis"
