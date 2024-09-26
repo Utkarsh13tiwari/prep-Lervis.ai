@@ -451,7 +451,7 @@ if user_input:
             agent_response = webrag(link, user_input)
             for key, value in options.items():
                 if value == link:
-                    related_links = google_search(user_input, site= key)
+                    related_links = google_search(key)
                     break
 
     else:
