@@ -23,7 +23,7 @@ from io import BytesIO
 
 import whisper
 import torch 
-import sounddevice as sd  # Make sure sounddevice is correctly imported
+#import sounddevice as sd  # Make sure sounddevice is correctly imported
 import numpy as np
 from scipy.io.wavfile import write
 import tempfile
