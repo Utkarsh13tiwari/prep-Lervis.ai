@@ -28,10 +28,10 @@ search_engine = st.secrets.db_credentials.search_engine
 
 langchain_api = st.secrets.db_credentials.langchain_api
 
-export LANGCHAIN_TRACING_V2 = true
-export LANGCHAIN_ENDPOINT="https://api.smith.langchain.com"
-export LANGCHAIN_API_KEY = langchain_api
-export LANGCHAIN_PROJECT= "Prep W Lervis"
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_ENDPOINT"]="https://api.smith.langchain.com"
+os.environ["LANGCHAIN_API_KEY"]= langchain_api
+os.environ['LANGCHAIN_PROJECT']= "Prep W Lervis"
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
