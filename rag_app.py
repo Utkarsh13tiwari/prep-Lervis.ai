@@ -46,9 +46,14 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
-
 openai = st.secrets.db_credentials.openai
 nvidia = st.secrets.db_credentials.nvidia
+langchain_api = st.secrets.db_credentials.langchain_api
+LANGCHAIN_TRACING_V2=true
+LANGCHAIN_ENDPOINT="https://api.smith.langchain.com"
+LANGCHAIN_API_KEY=langchain_api
+LANGCHAIN_PROJECT="pr-dear-astrology-27"
+
 
 try:
     from langchain_nvidia_ai_endpoints import ChatNVIDIA
