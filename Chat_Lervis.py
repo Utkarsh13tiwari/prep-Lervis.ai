@@ -449,7 +449,10 @@ if user_input:
             agent_response = pdf_rag(job_des, user_input=user_input)
         else:
             agent_response = webrag(link, user_input)
-            related_links = google_search(user_input, site= link)
+            for key, value in options.items():
+                if value == link:
+                    related_links = google_search(user_input, site= key)
+                    break
 
     else:
         with get_openai_callback():
