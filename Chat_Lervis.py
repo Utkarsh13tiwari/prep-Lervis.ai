@@ -446,7 +446,7 @@ if user_input:
     # Process user input with the agent
     if rag_checkbox:
         if selected_option == 'Job Description':
-            agent_response = pdf_rag(job_des, user_input=user_input)
+		agent_response = pdf_rag(job_des, user_input=user_input)
         else:
 		agent_response = webrag(link, user_input)
 		related_links = google_search(user_input, link)
