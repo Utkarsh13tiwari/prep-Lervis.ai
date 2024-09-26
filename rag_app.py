@@ -49,7 +49,7 @@ nvidia = st.secrets.db_credentials.nvidia
 
 try:
     from langchain_nvidia_ai_endpoints import ChatNVIDIA
-    llm = ChatNVIDIA(base_url="http://localhost:8000/v1",model="meta/llama3-70b-instruct")
+    llm = ChatNVIDIA(base_url="https://prep-w-lervis.streamlit.app/",model="meta/llama3-70b-instruct")
 except ImportError:
     raise ImportError("ChatNVIDIA is not available. Please check your installation.")
 
