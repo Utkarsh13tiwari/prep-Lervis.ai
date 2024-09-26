@@ -20,10 +20,11 @@ openai = st.secrets.db_credentials.openai
 nvidia = st.secrets.db_credentials.nvidia
 
 langchain_api = st.secrets.db_credentials.langchain_api
-LANGCHAIN_TRACING_V2= "true"
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
 LANGCHAIN_ENDPOINT="https://api.smith.langchain.com"
 LANGCHAIN_API_KEY=langchain_api
-LANGCHAIN_PROJECT="prep-w-lervis"
+os.environ['LANGCHAIN_PROJECT']= "Prep W Lervis"
+
 
 llm = ChatNVIDIA(model="meta/llama3-70b-instruct", nvidia_api_key = nvidia)
 
