@@ -74,7 +74,7 @@ def webrag(link, user_input):
     splits = text_splitter.split_documents(docs)
 
     # Create vector store from the documents
-    vectorstore = Chroma.from_documents(documents=splits, embedding=OpenAIEmbeddings(openai_api_key = openai))
+    vectorstore = Chroma.from_documents(documents=splits, embedding=OpenAIEmbeddings(openai_api_key = openai), persist_directory="./chroma_langchain_db")
 
     # Retrieve and generate using the relevant snippets
     retriever = vectorstore.as_retriever()
