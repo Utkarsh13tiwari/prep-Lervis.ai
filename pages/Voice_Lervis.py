@@ -30,6 +30,7 @@ import tempfile
 import threading
 import os
 from streamlit_mic_recorder import mic_recorder, speech_to_text
+import streamlit_mic_recorder
 
 # Set environment variables
 openai = st.secrets.db_credentials.openai 
