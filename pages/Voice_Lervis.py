@@ -29,6 +29,7 @@ from scipy.io.wavfile import write
 import tempfile
 import threading
 import os
+from streamlit_mic_recorder import mic_recorder, speech_to_text
 
 # Set environment variables
 openai = st.secrets.db_credentials.openai 
@@ -74,109 +75,78 @@ tools = [tavily_tool]
 functions = [format_tool_to_openai_function(t) for t in tools]
 llm_with_tools = openai_model.bind_functions(functions=functions)
 
-# Define the memory and prompt template
-memory = ConversationBufferWindowMemory(return_messages=True, memory_key='chat_history', input_key='JD', k=1)
+memory = ConversationBufferWindowMemory(return_messages=True, memory_key='chat_history', input_key='input', k=10)
 prompt_template = ChatPromptTemplate.from_messages(
     [
-        ("system", "You are an AI interviewer. Based on the job description provided, create relevant interview questions. Ask user, questions one by one, and then let user reply after every asked question first."),
-        MessagesPlaceholder(variable_name="chat_history"),
-        ("user", "{JD}"),
+        ("system", "You are an AI interviewer. Based on the job description provided, create relevant interview questions. Ask user, questions one by one, and then let user reply after every asked question first. Make sure you build up upon the user previouse answers"),
         MessagesPlaceholder(variable_name="agent_scratchpad"),
+        ("user", "{JD}"),
+        MessagesPlaceholder(variable_name="chat_history"),
+        ("user", "{input}")
     ]
 )
 
-# Create the agent
 agent = (
     {
         "JD": lambda x: x["JD"],
         "agent_scratchpad": lambda x: format_to_openai_tool_messages(x["intermediate_steps"]),
-        "chat_history": lambda x: x["chat_history"],
+        "input": lambda x: x["input"],
+        "chat_history": lambda x: x["chat_history"]
     }
     | prompt_template
     | llm_with_tools
     | OpenAIToolsAgentOutputParser()
 )
 
-# Initialize the AgentExecutor
 agent_executor = AgentExecutor(agent=agent, tools=tools, memory=memory, verbose=True)
+#--------------------------------------------------------------------------------------------------------------------------
+
 
 #--------------------------------------------------------------------------------------------------------------------------
 if 'is_recording' not in st.session_state:
     st.session_state['is_recording'] = False
 
+if 'text_received' not in st.session_state:
+    st.session_state.text_received = []
 
+if 'chat_history' not in st.session_state:
+    st.session_state.chat_history = []
+else:
+    for message in st.session_state.chat_history:
+        memory.save_context({'input':message['user']},{'outputs':message['AI']})
 
 #--------------------------------------------------------------------------------------------------------------------------
-# Helper functions for TTS and STT
+
 async def text_to_speech_edge(text):
-    # Initialize the TTS object and output stream
-    tts = edge_tts.Communicate(text, "en-US-JennyNeural")  # Specify the voice
+
+    tts = edge_tts.Communicate(text, "en-US-JennyNeural")  
     audio_fp = BytesIO()
 
-    # Stream the generated audio to the BytesIO object
     async for chunk in tts.stream():
         if chunk["type"] == "audio":
             audio_fp.write(chunk["data"])
 
-    # Make sure the stream is at the beginning for reading
     audio_fp.seek(0)
 
-    # Read the audio from BytesIO using pydub
     audio = AudioSegment.from_file(audio_fp, format="mp3")
-    return audio
+    wav_fp = BytesIO()
+    audio.export(wav_fp, format="wav") 
+    wav_fp.seek(0) 
+    return wav_fp
 
 def text_to_speech(text):
-    # Run the async function and play the audio
-    audio = asyncio.run(text_to_speech_edge(text))
-    play(audio)
-
-# Function to record audio
-
-def record_audio(duration=5, fs=44100):
-    """Record audio for a given duration and sampling rate."""
-    st.write("Listening...")
-    recording = sd.rec(int(duration * fs), samplerate=fs, channels=1, dtype='float32')
-    sd.wait()  # Wait until the recording is finished
-    st.write("Recording complete.")
-    return recording, fs
-
-# Function to convert speech to text using Whisper
-def speech_to_text():
-    try:
-        # Record audio
-        audio_data, fs = record_audio()
-
-        # Save audio to a temporary WAV file
-        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_audio_file:
-            write(temp_audio_file.name, fs, audio_data)
-            temp_filename = temp_audio_file.name
-
-        # Load Whisper model
-        model = whisper.load_model("base")
-
-        # Transcribe the recorded audio
-        result = model.transcribe(temp_filename)
-
-        # Clean up the temporary audio file
-        os.remove(temp_filename)
-
-        # Return the transcribed text
-        return result["text"]
-
-    except Exception as e:
-        st.write(f"Microphone error or Whisper error: {str(e)}")
-        return "Microphone is not accessible or recognized."
-
+    wav_audio = asyncio.run(text_to_speech_edge(text))
+    st.audio(wav_audio, autoplay=True ,format='audio/wav') 
+    return
+#---------------------------------------------------------------------------------------------------------------------------
 
 # Streamlit UI
 #st.set_page_config(page_title="Virtual AI Interviewer", layout="wide")
 
 st.title("Virtual AI Interviewer")
 
-# User inputs the job description
 JD = st.text_area("Enter Job Description (JD)")
 
-# Store the state for the first question
 if "first_question_asked" not in st.session_state:
     st.session_state.first_question_asked = False
 
@@ -184,20 +154,34 @@ if "first_question_asked" not in st.session_state:
 if st.button("Start Interview"):
     if JD and not st.session_state.first_question_asked:
         # Generate the first question
-        question = agent_executor.invoke({"JD": JD})['output']
+        question = agent_executor.invoke({"JD": JD,"input": ""})['output']
         st.session_state.first_question = question
         st.write(f"AI Interviewer: {question}")
+        #message = {'user': JD, 'AI': question}
+        #memory.save_context({'JD':message['user']},{'outputs':message['AI']})
+        #st.session_state.chat_history.append(message)
         text_to_speech(question)
         st.session_state.first_question_asked = True
     elif not JD:
         st.write("Please provide a job description to start the interview.")
 
-# Button for the user to provide a response
-if st.session_state.first_question_asked and st.button("Reply"):
-    user_response = speech_to_text()
-    st.write(f"You: {user_response}")
+if st.session_state.first_question_asked:
 
-    # Generate the next question based on the user's input
-    next_question = agent_executor.invoke({"JD": JD, "input": user_response})['output']
-    st.write(f"AI Interviewer: {next_question}")
-    text_to_speech(next_question)
+    st.write(f"Start replying to the Questions by clicking Start-recording button: ")
+    text = streamlit_mic_recorder.speech_to_text(language='en', use_container_width=False, just_once=True, key='STT')
+    if text:
+        st.session_state.text_received.append(text)
+
+    for text in st.session_state.text_received:
+        st.text(text)
+
+    if text is not None:
+        user_response = text
+
+        next_question = agent_executor.invoke({"JD": "", "input": user_response, "chat_history": st.session_state.chat_history})['output']
+        message = {'user': user_response, 'AI': next_question}
+        #memory.save_context({'input':message['user']},{'outputs':message['AI']})
+        st.session_state.chat_history.append(message)
+        st.write(f"AI Interviewer: {next_question}")
+        text_to_speech(next_question)
+
