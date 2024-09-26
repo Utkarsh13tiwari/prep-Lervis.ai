@@ -78,7 +78,12 @@ def webrag(link, user_input):
 
     # Retrieve and generate using the relevant snippets
     retriever = vectorstore.as_retriever()
-    prompt = hub.pull("rlm/rag-prompt")
+    prompt = f"""
+    You are given a link: {link}
+    The user has asked the following question: {user_input}
+    
+    Your task is to extract the relevant information from the content of the link and provide an accurate and concise answer based on it.
+    """
 
     def format_docs(docs):
         return "\n\n".join(doc.page_content for doc in docs)
