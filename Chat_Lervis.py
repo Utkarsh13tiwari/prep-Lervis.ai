@@ -275,12 +275,15 @@ st.markdown(
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Google Search ------------------------------------------------------------------------------------------------------------------------------------------------------------
-def google_search(query):
+def google_search(query, site=None):
     url = 'https://www.googleapis.com/customsearch/v1'
+    if site:
+        query = f"site:{site} {query}"
+    
     params = {
         'q': query,
-        'key': api,
-        'cx': search_engine
+        'key': os.environ["API_KEY"],
+        'cx': os.environ["SEARCH_ENGINE_ID"]
     }
     response = requests.get(url, params=params)
     results = response.json()
@@ -446,6 +449,7 @@ if user_input:
             agent_response = pdf_rag(job_des, user_input=user_input)
         else:
             agent_response = webrag(link, user_input)
+	    related_links = google_search(user_input, link)
 
     else:
         with get_openai_callback():
@@ -455,7 +459,7 @@ if user_input:
         message = {'user': user_input, 'AI': agent_response}
         st.session_state.chat_history.append(message)
 
-    related_links = google_search(user_input)
+    	related_links = google_search(user_input)
     
     # Display the response
     col1, col2, col3 = st.columns([1, 4, 1])
