@@ -279,29 +279,29 @@ col1, col2, col3 = st.columns([1, 4, 1])
 with col3:
     with st.popover("Usage"):
         st.markdown("""
-        <div style="padding: 20px; font-family: Arial, sans-serif;">
-            <h3 style="text-align: center;">About Prep W Lervis</h3>
-            <p>This bot is designed to assist individuals in preparing for interviews by providing relevant information based on their input.</p>
-            
-            <h4>Bot Usage Instructions:</h4>
-            <p>You are a helpful assistant named <strong>Prep W Lervis</strong>. Your purpose is to:</p>
-            <ul style="margin-left: 20px;">
-                <li>Assist people who are preparing for their interviews or want to learn specific topics as part of their interview preparation process.</li>
-                <li>Only answer questions related to educational content and interview preparation.</li>
-                <li>Help users prepare for the topics they mention, provide them with relevant links, and present the content in a structured manner.</li>
-                <li>Offer educational content and soft skill training materials.</li>
-            </ul>
-            <p>When responding, please:</p>
-            <ul style="margin-left: 20px;">
-                <li>Format your responses with headings, bullet points, and clear sections.</li>
-                <li>Give all necessary information in an exhaustive manner.</li>
-                <li>Use proper gaps between points and start different points on different lines.</li>
-                <li>Make multiple paragraphs for clarity.</li>
-            </ul>
-
-            <h4>RAG Implementation:</h4>
-            <p>If you check the RAG checkbox, you will be able to implement RAG based on selected dropdown options.</p>
-        </div>
+	        <div style="padding: 20px; font-family: Arial, sans-serif;">
+	            <h3 style="text-align: center;">About Prep W Lervis</h3>
+	            <p>This bot is designed to assist individuals in preparing for interviews by providing relevant information based on their input.</p>
+	            
+	            <h4>Bot Usage Instructions:</h4>
+	            <p>You are a helpful assistant named <strong>Prep W Lervis</strong>. Your purpose is to:</p>
+	            <ul style="margin-left: 20px;">
+	                <li>Assist people who are preparing for their interviews or want to learn specific topics as part of their interview preparation process.</li>
+	                <li>Only answer questions related to educational content and interview preparation.</li>
+	                <li>Help users prepare for the topics they mention, provide them with relevant links, and present the content in a structured manner.</li>
+	                <li>Offer educational content and soft skill training materials.</li>
+	            </ul>
+	            <p>When responding, please:</p>
+	            <ul style="margin-left: 20px;">
+	                <li>Format your responses with headings, bullet points, and clear sections.</li>
+	                <li>Give all necessary information in an exhaustive manner.</li>
+	                <li>Use proper gaps between points and start different points on different lines.</li>
+	                <li>Make multiple paragraphs for clarity.</li>
+	            </ul>
+	
+	            <h4>RAG Implementation:</h4>
+	            <p>If you check the RAG checkbox, you will be able to implement RAG based on selected dropdown options.</p>
+	        </div>
         """, unsafe_allow_html=True)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
