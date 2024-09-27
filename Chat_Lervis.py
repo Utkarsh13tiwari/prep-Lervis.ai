@@ -261,6 +261,10 @@ st.markdown(
     .st-emotion-cache-1xxg1wz {
         position: fixed;
     }
+
+    ..st-emotion-cache-ocqkz7 {
+    	position: absolute;
+    }
     </style>
     <div class="navbar">
         <div class="title">Interview Preparation Assistant - Prep W Lervis</div>
