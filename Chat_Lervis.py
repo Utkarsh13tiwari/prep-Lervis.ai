@@ -281,7 +281,7 @@ with col3:
         st.markdown("""
 	        <div style="padding: 10px; font-family: Arial, sans-serif;">
 	            <h3 style="text-align: center;">About Prep W Lervis</h3>
-	            <p>This Agent is designed to assist individuals in preparing for interviews by providing relevant information based on their input.</p>
+	            <p>This agent helps individuals prepare for interviews by delivering pertinent information tailored to their inputs.</p>
 	            <h4 Bot Usage Instructions:</h4>
 	            <p>This agent named <strong>Prep W Lervis</strong>. It's purpose is to:</p>
 	            <ul style="margin-left: 20px;">
