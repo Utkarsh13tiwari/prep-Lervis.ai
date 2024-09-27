@@ -162,45 +162,52 @@ def text_to_speech(text):
 
 st.title("Virtual AI Interviewer")
 
-JD = st.text_area("Enter Job Description (JD)")
+row1 = st.columns([1, 15, 1])
+row2 = st.columns([1, 15, 1])
+#col1, col2, col3 = st.columns([1, 3, 1])
+container = st.container(border=True)
+with row1[1]:
+    st.title("Virtual AI Interviewer")
 
-if "first_question_asked" not in st.session_state:
-    st.session_state.first_question_asked = False
+    JD = st.text_area("Enter Job Description (JD)")
 
-# Button to start the interview
-if st.button("Start Interview"):
-    if JD and not st.session_state.first_question_asked:
-        # Generate the first question
-        with st.spinner("Working......"):
-            question = agent_executor.invoke({"JD": JD,"input": ""})['output']
-        st.session_state.first_question = question
-        st.write(f"AI Interviewer: {question}")
-        #message = {'user': JD, 'AI': question}
-        #memory.save_context({'JD':message['user']},{'outputs':message['AI']})
-        #st.session_state.chat_history.append(message)
-        text_to_speech(question)
-        st.session_state.first_question_asked = True
-    elif not JD:
-        st.write("Please provide a job description to start the interview.")
+    if "first_question_asked" not in st.session_state:
+        st.session_state.first_question_asked = False
 
-if st.session_state.first_question_asked:
-    st.write("Start replying to the Questions by clicking Start-recording button:")
+    if st.button("Start Interview"):
+        if JD and not st.session_state.first_question_asked:
+            # Generate the first question
+            with st.container():
+                with st.spinner("Working......"):
+                    question = agent_executor.invoke({"JD": JD,"input": ""})['output']
+                st.session_state.first_question = question
+                st.write(f"AI Interviewer: {question}")
+            #message = {'user': JD, 'AI': question}
+            #memory.save_context({'JD':message['user']},{'outputs':message['AI']})
+            #st.session_state.chat_history.append(message)
+            text_to_speech(question)
+            st.session_state.first_question_asked = True
+        elif not JD:
+            st.write("Please provide a job description to start the interview.")
 
-    # Fixed button for speech-to-text
-    text = streamlit_mic_recorder.speech_to_text(language='en', use_container_width=False, just_once=True, key='STT')
+    if st.session_state.first_question_asked:
+        st.write("Start replying to the Questions by clicking Start-recording button:")
 
-    if text:
-        st.session_state.text_received.append(text)
+        with row2[1]:
+            text = streamlit_mic_recorder.speech_to_text(language='en', use_container_width=False, just_once=True, key='STT')
 
-    for text in st.session_state.text_received:
-        st.text(text)
+        with row1[1]:
+            if text:
+                st.session_state.text_received.append(text)
 
-    if text is not None:
-        user_response = text
-        with st.spinner("Working......"):
-            next_question = agent_executor.invoke({"JD": "", "input": user_response, "chat_history": st.session_state.chat_history})['output']
-        message = {'user': user_response, 'AI': next_question}
-        st.session_state.chat_history.append(message)
-        st.write(f"AI Interviewer: {next_question}")
-        text_to_speech(next_question)
+            for text in st.session_state.text_received:
+                st.text(text)
 
+            if text is not None:
+                user_response = text
+                with st.spinner("Working......"):
+                    next_question = agent_executor.invoke({"JD": "", "input": user_response, "chat_history": st.session_state.chat_history})['output']
+                message = {'user': user_response, 'AI': next_question}
+                st.session_state.chat_history.append(message)
+                st.write(f"AI Interviewer: {next_question}")
+                text_to_speech(next_question)
