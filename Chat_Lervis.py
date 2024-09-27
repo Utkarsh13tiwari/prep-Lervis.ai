@@ -279,7 +279,7 @@ col1, col2, col3 = st.columns([1, 4, 1])
 with col3:
     with st.popover("Usage"):
         st.markdown("""
-	        <div style="padding: 20px; font-family: Arial, sans-serif;">
+	        <div style="padding: 10px; font-family: Arial, sans-serif;">
 	            <h3 style="text-align: center;">About Prep W Lervis</h3>
 	            <p>This Agent is designed to assist individuals in preparing for interviews by providing relevant information based on their input.</p>
 	            <h4 Bot Usage Instructions:</h4>
