@@ -78,9 +78,7 @@ with col3:
     with st.popover("Usage"):
         st.markdown("""
 	        <div style="padding: 10px; font-family: Arial, sans-serif;">
-	            <h3 style="text-align: center;"> About Lervis Voice Assitance </h3>
 	            <p>This voice assistant acts as your personal virtual interviewer. It tailors interview questions based on the job description, and the follow-up questions are determined by your responses.</p>
-	
 	        </div>
         """, unsafe_allow_html=True)
 	    
