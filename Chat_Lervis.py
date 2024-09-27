@@ -464,25 +464,30 @@ with col1:
 #----------------------------------------------------------------------------------------------------------
 
 if user_input:
-    # Display user input
+
     col1, col2, col3 = st.columns([1, 4, 1])
     with col2:
         st.write(f'<div class="message-container"><p class="user-message">{user_input}</p></div>', unsafe_allow_html=True)
     
-    # Process user input with the agent
     if rag_checkbox:
         if selected_option == 'Job Description':
-            agent_response = pdf_rag(job_des, user_input=user_input)
+            with col2:
+                with st.spinner("Agent"):
+                    agent_response = pdf_rag(job_des, user_input=user_input)
         else:
-            agent_response = webrag(link, user_input)
-            for key, value in options.items():
-                if value == link:
-                    related_links = google_search(key)
-                    break
+            with col2:
+                with st.spinner("Agent"):
+                    agent_response = webrag(link, user_input)
+                    for key, value in options.items():
+                        if value == link:
+                            related_links = google_search(user_input, site= key)
+                            break
 
     else:
         with get_openai_callback():
-            agent_response = agent_executor(user_input, st.session_state.chat_history)
+            with col2:
+                with st.spinner("Agent"):
+                    agent_response = agent_executor(user_input, st.session_state.chat_history)
         agent_response = agent_response["output"]
 
         message = {'user': user_input, 'AI': agent_response}
@@ -490,7 +495,6 @@ if user_input:
 
         related_links = google_search(user_input)
     
-    # Display the response
     col1, col2, col3 = st.columns([1, 4, 1])
     with col2:
         st.write("### Agent Response:")
@@ -500,7 +504,6 @@ if user_input:
                 time.sleep(0.02)
         st.write_stream(stream_data)  # Typewriter effect
     
-    # Display related links in an expander
     with col3:
         st.write("### Related Links:")
         with st.expander("Google Search", expanded=True):
@@ -522,8 +525,12 @@ if user_input:
         st.session_state['conversations'][st.session_state['current_conversation']].append({"isUser": False, "text": related_links, "related":True})
 
 
-    st.session_state["disabled"] = False  # Set processing flag to False after processing
+    st.session_state["disabled"] = False 
     st.rerun()
+
+
+
+
 
 
 
