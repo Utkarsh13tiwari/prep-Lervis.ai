@@ -282,8 +282,7 @@ with col3:
 	        <div style="padding: 20px; font-family: Arial, sans-serif;">
 	            <h3 style="text-align: center;">About Prep W Lervis</h3>
 	            <p>This bot is designed to assist individuals in preparing for interviews by providing relevant information based on their input.</p>
-	            
-	            <h4>Bot Usage Instructions:</h4>
+	            <h4 Bot Usage Instructions:</h4>
 	            <p>You are a helpful assistant named <strong>Prep W Lervis</strong>. Your purpose is to:</p>
 	            <ul style="margin-left: 20px;">
 	                <li>Assist people who are preparing for their interviews or want to learn specific topics as part of their interview preparation process.</li>
@@ -298,7 +297,6 @@ with col3:
 	                <li>Use proper gaps between points and start different points on different lines.</li>
 	                <li>Make multiple paragraphs for clarity.</li>
 	            </ul>
-	
 	            <h4>RAG Implementation:</h4>
 	            <p>If you check the RAG checkbox, you will be able to implement RAG based on selected dropdown options.</p>
 	        </div>
