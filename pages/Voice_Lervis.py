@@ -72,36 +72,6 @@ hide_streamlit_style = """
 
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-st.markdown(
-    """
-    <style>
-    .fixed-bottom {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: #f0f0f0;
-        padding: 10px;
-        z-index: 9999;
-        text-align: center;
-    }
-    .fixed-bottom button {
-        background-color: #4CAF50; /* Green */
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
 col1, col2, col3 = st.columns([1, 4, 1])
 # Popover content for About
 with col3:
@@ -217,9 +187,7 @@ if st.session_state.first_question_asked:
     st.write("Start replying to the Questions by clicking Start-recording button:")
 
     # Fixed button for speech-to-text
-    st.markdown('<div class="fixed-bottom">', unsafe_allow_html=True)
     text = streamlit_mic_recorder.speech_to_text(language='en', use_container_width=False, just_once=True, key='STT')
-    st.markdown('</div>', unsafe_allow_html=True)
 
     if text:
         st.session_state.text_received.append(text)
