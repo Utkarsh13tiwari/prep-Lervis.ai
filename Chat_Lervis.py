@@ -268,7 +268,11 @@ st.markdown(
     </style>
     <div class="navbar">
         <div class="title">Interview Preparation Assistant - Prep W Lervis</div>
+        <div>
+            <a href="#contact">Connect</a>
+        </div>
     </div>
+    <div class="content">
     <div class="content">
     """,
     unsafe_allow_html=True,
