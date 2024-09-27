@@ -89,8 +89,6 @@ with col3:
                 	<li>Offer soft skill training materials for interview readiness.</li>
                 	<li>Implement RAG (Retrieve and Generate) functionality based on selected dropdown options if the RAG checkbox is checked.</li>
             	    </ul>
-	            <h4>RAG Implementation:</h4>
-	            <p>If you check the RAG checkbox, you will be able to implement RAG based on selected dropdown options.</p>
 	        </div>
         """, unsafe_allow_html=True)
 	    
