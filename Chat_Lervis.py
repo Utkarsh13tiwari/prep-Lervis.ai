@@ -272,8 +272,6 @@ st.markdown(
             <a href="#contact">Connect</a>
         </div>
     </div>
-    <div class="content">
-    <div class="content">
     """,
     unsafe_allow_html=True,
 )
