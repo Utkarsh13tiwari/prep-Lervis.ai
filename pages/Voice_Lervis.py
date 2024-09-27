@@ -199,7 +199,7 @@ if st.session_state.first_question_asked:
         user_response = text
         with st.spinner("Working......"):
             next_question = agent_executor.invoke({"JD": "", "input": user_response, "chat_history": st.session_state.chat_history})['output']
-	    text = streamlit_mic_recorder.speech_to_text(language='en', use_container_width=False, just_once=True, key='STT')
+        text = streamlit_mic_recorder.speech_to_text(language='en', use_container_width=False, just_once=True, key='STT')
         message = {'user': user_response, 'AI': next_question}
         st.session_state.chat_history.append(message)
         st.write(f"AI Interviewer: {next_question}")
