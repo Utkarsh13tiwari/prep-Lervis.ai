@@ -264,14 +264,28 @@ st.markdown(
     </style>
     <div class="navbar">
         <div class="title">Interview Preparation Assistant - Prep W Lervis</div>
-        <div>
-            <a href="#About-prep-with-Lervis">About</a>
-        </div>
     </div>
     <div class="content">
     """,
     unsafe_allow_html=True,
 )
+
+col1, col2, col3 = st.columns([1, 4, 1])
+# Popover content for About
+with col3:
+    with st.popover("Useage"):
+        st.markdown("""
+            <div style="padding-left: 2px;">
+                <h3>About Prep W Lervis</h3>
+                <p>This bot will help you prepare for interviews by providing relevant information based on your input.</p>
+                <p>How to use:</p>
+                <ul>
+                    <li>Ask questions, get structured answers.</li>
+                    <li>Follow up with additional questions.</li>
+                    <li>Learn from educational content and resources.</li>
+                </ul>
+            </div>
+        """, unsafe_allow_html=True)
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Google Search ------------------------------------------------------------------------------------------------------------------------------------------------------------
