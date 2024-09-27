@@ -285,10 +285,10 @@ with col3:
 	            <h3 style="text-align: center;">About Prep W Lervis</h3>
 	            <p>This agent helps individuals prepare for interviews by delivering pertinent information tailored to their inputs.</p>
 	            <h4 Bot Usage Instructions:</h4>
-	            <p>This agent named <strong>Prep W Lervis</strong>. It's purpose is to:</p>
+	            <p>This agent's purpose is to:</p>
 	            <ul style="margin-left: 20px;">
-                	<li>Assist with educational content related to interviews.</li>
-                	<li>Answer questions specifically about interview preparation topics.</li>
+                	<li>Assist you with educational content related to interviews.</li>
+                	<li>Answer your questions specifically about interview preparation topics.</li>
                 	<li>Provide structured responses with relevant links and resources.</li>
                 	<li>Offer soft skill training materials for interview readiness.</li>
                 	<li>Implement RAG (Retrieve and Generate) functionality based on selected dropdown options if the RAG checkbox is checked.</li>
