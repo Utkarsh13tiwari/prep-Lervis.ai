@@ -285,18 +285,12 @@ with col3:
 	            <h4 Bot Usage Instructions:</h4>
 	            <p>You are a helpful assistant named <strong>Prep W Lervis</strong>. Your purpose is to:</p>
 	            <ul style="margin-left: 20px;">
-	                <li>Assist people who are preparing for their interviews or want to learn specific topics as part of their interview preparation process.</li>
-	                <li>Only answer questions related to educational content and interview preparation.</li>
-	                <li>Help users prepare for the topics they mention, provide them with relevant links, and present the content in a structured manner.</li>
-	                <li>Offer educational content and soft skill training materials.</li>
-	            </ul>
-	            <p>When responding, please:</p>
-	            <ul style="margin-left: 20px;">
-	                <li>Format your responses with headings, bullet points, and clear sections.</li>
-	                <li>Give all necessary information in an exhaustive manner.</li>
-	                <li>Use proper gaps between points and start different points on different lines.</li>
-	                <li>Make multiple paragraphs for clarity.</li>
-	            </ul>
+                	<li>Assist with educational content related to interviews.</li>
+                	<li>Answer questions specifically about interview preparation topics.</li>
+                	<li>Provide structured responses with relevant links and resources.</li>
+                	<li>Offer soft skill training materials for interview readiness.</li>
+                	<li>Implement RAG (Retrieve and Generate) functionality based on selected dropdown options if the RAG checkbox is checked.</li>
+            	    </ul>
 	            <h4>RAG Implementation:</h4>
 	            <p>If you check the RAG checkbox, you will be able to implement RAG based on selected dropdown options.</p>
 	        </div>
