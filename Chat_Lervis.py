@@ -492,7 +492,7 @@ if user_input:
 
         message = {'user': user_input, 'AI': agent_response}
         st.session_state.chat_history.append(message)
-	    st.write(st.session_state.chat_history)
+        st.write(st.session_state.chat_history)
 
         related_links = google_search(user_input)
     
@@ -528,7 +528,6 @@ if user_input:
 
     st.session_state["disabled"] = False 
     st.rerun()
-
 
 
 
