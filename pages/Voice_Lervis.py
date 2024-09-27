@@ -78,17 +78,9 @@ with col3:
     with st.popover("Usage"):
         st.markdown("""
 	        <div style="padding: 10px; font-family: Arial, sans-serif;">
-	            <h3 style="text-align: center;">About Prep W Lervis</h3>
-	            <p>This Agent is designed to assist individuals in preparing for interviews by providing relevant information based on their input.</p>
-	            <h4 Bot Usage Instructions:</h4>
-	            <p>This agent named <strong>Prep W Lervis</strong>. It's purpose is to:</p>
-	            <ul style="margin-left: 20px;">
-                	<li>Assist with educational content related to interviews.</li>
-                	<li>Answer questions specifically about interview preparation topics.</li>
-                	<li>Provide structured responses with relevant links and resources.</li>
-                	<li>Offer soft skill training materials for interview readiness.</li>
-                	<li>Implement RAG (Retrieve and Generate) functionality based on selected dropdown options if the RAG checkbox is checked.</li>
-            	    </ul>
+	            <h3 style="text-align: center;"> About Lervis Voice Assitance </h3>
+	            <p>This voice assistant acts as your personal virtual interviewer. It tailors interview questions based on the job description, and the follow-up questions are determined by your responses.</p>
+	
 	        </div>
         """, unsafe_allow_html=True)
 	    
