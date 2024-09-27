@@ -171,7 +171,8 @@ if "first_question_asked" not in st.session_state:
 if st.button("Start Interview"):
     if JD and not st.session_state.first_question_asked:
         # Generate the first question
-        question = agent_executor.invoke({"JD": JD,"input": ""})['output']
+        with st.spinner("Working......"):
+            question = agent_executor.invoke({"JD": JD,"input": ""})['output']
         st.session_state.first_question = question
         st.write(f"AI Interviewer: {question}")
         #message = {'user': JD, 'AI': question}
@@ -194,8 +195,8 @@ if st.session_state.first_question_asked:
 
     if text is not None:
         user_response = text
-
-        next_question = agent_executor.invoke({"JD": "", "input": user_response, "chat_history": st.session_state.chat_history})['output']
+        with st.spinner("Working......"):
+            next_question = agent_executor.invoke({"JD": "", "input": user_response, "chat_history": st.session_state.chat_history})['output']
         message = {'user': user_response, 'AI': next_question}
         #memory.save_context({'input':message['user']},{'outputs':message['AI']})
         st.session_state.chat_history.append(message)
