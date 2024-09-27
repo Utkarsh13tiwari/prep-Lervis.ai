@@ -269,7 +269,7 @@ st.markdown(
     <div class="navbar">
         <div class="title">Interview Preparation Assistant - Prep W Lervis</div>
         <div>
-            <a href="#contact">Connect</a>
+            <a href="https://www.linkedin.com/in/utkarsh-tiwari1313/">Connect</a>
         </div>
     </div>
     """,
