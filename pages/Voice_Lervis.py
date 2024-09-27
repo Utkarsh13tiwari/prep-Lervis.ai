@@ -160,8 +160,6 @@ def text_to_speech(text):
 # Streamlit UI
 #st.set_page_config(page_title="Virtual AI Interviewer", layout="wide")
 
-st.title("Virtual AI Interviewer")
-
 row1 = st.columns([1, 15, 1])
 row2 = st.columns([1, 15, 1])
 #col1, col2, col3 = st.columns([1, 3, 1])
