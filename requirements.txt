@@ -35,3 +35,4 @@ streamlit_mic_recorder
 ffmpeg-python
 ffmpeg
 chromadb
+langchain-groq
