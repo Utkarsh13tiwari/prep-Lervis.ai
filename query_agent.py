@@ -9,7 +9,7 @@ from langchain.agents import initialize_agent, AgentType
 from langchain_community.tools.tavily_search.tool import TavilySearchResults
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.agents.output_parsers.openai_tools import OpenAIToolsAgentOutputParser
-from langchain.agents import AgentExecutor
+from langchain.agents import AgentExecutor,create_tool_calling_agent
 from langchain_core.utils.function_calling import format_tool_to_openai_function
 from langchain.agents.format_scratchpad.openai_tools import format_to_openai_tool_messages
 from langchain.memory import ConversationBufferWindowMemory
