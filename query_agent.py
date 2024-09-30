@@ -1,3 +1,4 @@
+
 import os
 import openai
 import streamlit as st
@@ -9,7 +10,7 @@ from langchain.agents import initialize_agent, AgentType
 from langchain_community.tools.tavily_search.tool import TavilySearchResults
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.agents.output_parsers.openai_tools import OpenAIToolsAgentOutputParser
-from langchain.agents import AgentExecutor,create_tool_calling_agent
+from langchain.agents import AgentExecutor
 from langchain_core.utils.function_calling import format_tool_to_openai_function
 from langchain.agents.format_scratchpad.openai_tools import format_to_openai_tool_messages
 from langchain.memory import ConversationBufferWindowMemory
@@ -17,7 +18,6 @@ from langchain_core.messages import HumanMessage, AIMessage
 from langchain.callbacks import get_openai_callback
 import time
 #from langchain_google_vertexai import ChatVertexAI
-from langchain_groq import ChatGroq
 
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -26,7 +26,6 @@ openai = st.secrets.db_credentials.openai
 tavily = st.secrets.db_credentials.tavily
 api = st.secrets.db_credentials.api
 search_engine = st.secrets.db_credentials.search_engine
-GROQ_API_KEY = st.secrets.db_credentials.GROQ_API_KEY
 
 langchain_api = st.secrets.db_credentials.langchain_api
 
@@ -60,25 +59,16 @@ prompt = ChatPromptTemplate.from_messages(
 )
 
 
-#openai_model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, openai_api_key=os.environ["OPENAI_API_KEY"])
+openai_model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, openai_api_key=openai)
 search = TavilySearchAPIWrapper(tavily_api_key=tavily)
 tavily_tool = TavilySearchResults(api_wrapper=search)
 tools = [tavily_tool]
 
-llm = ChatGroq(
-    model="mixtral-8x7b-32768",
-    temperature=0,
-    max_tokens=None,
-    timeout=None,
-    max_retries=2,
-    api_key=GROQ_API_KEY,
-    # other params...
-)
-
-agent = create_tool_calling_agent(llm, tools, prompt)
+functions = [format_tool_to_openai_function(t) for t in tools]
+llm_with_tools = openai_model.bind_functions(functions=functions)
 memory = ConversationBufferWindowMemory(return_messages=True, memory_key='chat_history', input_key='input', k=1)
 
-'''
+
 agent = (
     {
         "input": lambda x: x["input"],
@@ -91,7 +81,6 @@ agent = (
     | llm_with_tools
     | OpenAIToolsAgentOutputParser()
 )
-'''
 def agent_executor(user_input,chat_history):
     agent_exe=AgentExecutor(agent=agent, tools=tools, memory=memory, verbose=True ,stream_runnable=False)
     agent_response=agent_exe.invoke({"input": user_input, "chat_history":chat_history})
