@@ -17,6 +17,7 @@ from langchain_core.messages import HumanMessage, AIMessage
 from langchain.callbacks import get_openai_callback
 import time
 #from langchain_google_vertexai import ChatVertexAI
+from langchain_groq import ChatGroq
 
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
