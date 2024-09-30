@@ -71,6 +71,7 @@ llm = ChatGroq(
     max_tokens=None,
     timeout=None,
     max_retries=2,
+    api_key=GROQ_API_KEY,
     # other params...
 )
 
