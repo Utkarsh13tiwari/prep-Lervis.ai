@@ -58,16 +58,24 @@ prompt = ChatPromptTemplate.from_messages(
 )
 
 
-openai_model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, openai_api_key=openai)
-search = TavilySearchAPIWrapper(tavily_api_key=tavily)
+#openai_model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, openai_api_key=os.environ["OPENAI_API_KEY"])
+search = TavilySearchAPIWrapper(tavily_api_key=os.environ["TAVILY_API_KEY"])
 tavily_tool = TavilySearchResults(api_wrapper=search)
 tools = [tavily_tool]
 
-functions = [format_tool_to_openai_function(t) for t in tools]
-llm_with_tools = openai_model.bind_functions(functions=functions)
+llm = ChatGroq(
+    model="mixtral-8x7b-32768",
+    temperature=0,
+    max_tokens=None,
+    timeout=None,
+    max_retries=2,
+    # other params...
+)
+
+agent = create_tool_calling_agent(llm, tools, prompt)
 memory = ConversationBufferWindowMemory(return_messages=True, memory_key='chat_history', input_key='input', k=1)
 
-
+'''
 agent = (
     {
         "input": lambda x: x["input"],
@@ -80,6 +88,7 @@ agent = (
     | llm_with_tools
     | OpenAIToolsAgentOutputParser()
 )
+'''
 def agent_executor(user_input,chat_history):
     agent_exe=AgentExecutor(agent=agent, tools=tools, memory=memory, verbose=True ,stream_runnable=False)
     agent_response=agent_exe.invoke({"input": user_input, "chat_history":chat_history})
