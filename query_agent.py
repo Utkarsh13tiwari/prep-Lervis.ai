@@ -26,6 +26,7 @@ openai = st.secrets.db_credentials.openai
 tavily = st.secrets.db_credentials.tavily
 api = st.secrets.db_credentials.api
 search_engine = st.secrets.db_credentials.search_engine
+GROQ_API_KEY = st.secrets.db_credentials.GROQ_API_KEY
 
 langchain_api = st.secrets.db_credentials.langchain_api
 
