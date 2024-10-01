@@ -85,27 +85,28 @@ def webrag(link, user_input):
 
     # Retrieve and generate using the relevant snippets
     retriever = vectorstore.as_retriever()
+    system_prompt = (
+        "You are an assistant for question-answering tasks. "
+        "Use the following pieces of retrieved context to answer "
+        "the question. If you don't know the answer, say that you "
+        "don't know. Use three sentences maximum and keep the "
+        "answer concise."
+        "\n\n"
+        "{context}"
+    )
+
     prompt = ChatPromptTemplate.from_messages(
-    [
-        ("system", "You are given a link: {link}."),
-        ("user", "The user has asked the following question: {user_input}"),
-        (
-            "assistant",
-            "Your task is to extract the relevant information from the content of the link and provide an accurate and concise answer based on it."
-        )
-    ]
+        [
+            ("system", system_prompt),
+            ("human", "{input}"),
+        ]
     )
 
-    def format_docs(docs):
-        return "\n\n".join(doc.page_content for doc in docs)
 
-    # Build and execute RAG chain
-    rag_chain = (
-        {"context": retriever | format_docs, "question": RunnablePassthrough()}
-        | prompt
-        | llm
-        | StrOutputParser()
-    )
-    response = rag_chain.invoke(user_input)
+    question_answer_chain = create_stuff_documents_chain(llm, prompt)
+    rag_chain = create_retrieval_chain(retriever, question_answer_chain)
+
+    response = rag_chain.invoke({"input": user_input})
+    print(response["answer"])
 
     return response
