@@ -45,6 +45,8 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import langsmith
+from sentence_transformers import SentenceTransformer
+from langchain.embeddings.base import Embeddings
 
 
 openai = st.secrets.db_credentials.openai
