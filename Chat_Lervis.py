@@ -393,29 +393,6 @@ with col2:
 
         #with col3:
             #for message in st.session_state['conversations'][st.session_state['current_conversation']]:
-        if message["related"]: 
-                
-            #related_links = message["text"]
-            #title = fetch_title(link)
-            #st.write("### Related Links:")
-            #with st.expander("Google Search", expanded=True):
-            #    st.markdown('<div class="related-links-expander">', unsafe_allow_html=True)
-            #    for link in related_links:
-            #        st.write(f"- [{title}]({link})")
-            #    st.markdown('</div>', unsafe_allow_html=True)
-            
-            
-            related_links = message["text"]
-            st.write("### Related Links:")
-            with st.expander("Google Search", expanded=True):
-                st.markdown('<div class="related-links-expander">', unsafe_allow_html=True)
-                for link in related_links:
-                    st.write(f"- [{link}]({link})")
-                st.markdown('</div>', unsafe_allow_html=True)
-            
-
-
-
 
 #--------------------------------------------------------------------------------------------------------
 # Input field for user query
@@ -478,10 +455,6 @@ if user_input:
             with col2:
                 with st.spinner("Agent"):
                     agent_response = webrag(link, user_input)
-                    for key, value in options.items():
-                        if value == link:
-                            related_links = google_search(user_input, site= key)
-                            break
 
     else:
         with get_openai_callback():
@@ -492,8 +465,6 @@ if user_input:
 
         message = {'user': user_input, 'AI': agent_response}
         st.session_state.chat_history.append(message)
-
-        related_links = google_search(user_input)
     
     col1, col2, col3 = st.columns([1, 4, 1])
     with col2:
@@ -504,25 +475,11 @@ if user_input:
                 time.sleep(0.02)
         st.write_stream(stream_data)  # Typewriter effect
     
-    with col3:
-        st.write("### Related Links:")
-        with st.expander("Google Search", expanded=True):
-            if 'related_links' in st.session_state:
-                st.markdown('<div class="related-links-expander">', unsafe_allow_html=True)
-                for link in st.session_state['related_links']:
-                    st.write(f"- [{link}]({link})")
-                st.markdown('</div>', unsafe_allow_html=True)
-            else:
-                st.write("No related links found.")
 
     # Save conversation history including related links
     with col2:
         st.session_state['conversations'][st.session_state['current_conversation']].append({"isUser": True, "text": user_input, "related": False})
         st.session_state['conversations'][st.session_state['current_conversation']].append({"isUser": False, "text": agent_response, "related": False})
-    
-    with col3:
-        #related_links_text = "\n".join([f"[{link}]({link})" for link in related_links])
-        st.session_state['conversations'][st.session_state['current_conversation']].append({"isUser": False, "text": related_links, "related":True})
 
 
     st.session_state["disabled"] = False 
