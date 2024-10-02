@@ -36,3 +36,5 @@ ffmpeg-python
 ffmpeg
 chromadb
 langchain-groq
+langchain-huggingface
+sentence-transformers
