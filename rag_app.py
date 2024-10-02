@@ -56,7 +56,18 @@ LANGCHAIN_ENDPOINT="https://api.smith.langchain.com"
 LANGCHAIN_API_KEY=langchain_api
 os.environ['LANGCHAIN_PROJECT']= "Prep W Lervis"
 
+class CustomEmbeddings(Embeddings):
+    def __init__(self, model_name: str):
+        self.model = SentenceTransformer(model_name)
 
+    def embed_documents(self, documents: list[str]) -> list[list[float]]:
+        return [self.model.encode(d,batch_size=64).tolist() for d in documents]
+
+    def embed_query(self, query: str) -> list[float]:
+        return self.model.encode([query])[0].tolist()
+
+embedding_model = CustomEmbeddings(model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
+#-------------------------------------------------------------------------------------------------------------
 try:
     from langchain_nvidia_ai_endpoints import ChatNVIDIA
     llm = ChatNVIDIA(model="meta/llama3-70b-instruct", nvidia_api_key = nvidia)
@@ -81,7 +92,7 @@ def webrag(link, user_input):
     splits = text_splitter.split_documents(docs)
 
     # Create vector store from the documents
-    vectorstore = Chroma.from_documents(documents=splits, embedding=OpenAIEmbeddings(openai_api_key = openai), persist_directory="./chroma_langchain_db")
+    vectorstore = Chroma.from_documents(documents=splits, embedding=emvedding_model, persist_directory="./chroma_langchain_db")
 
     # Retrieve and generate using the relevant snippets
     retriever = vectorstore.as_retriever()
