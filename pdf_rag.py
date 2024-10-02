@@ -27,6 +27,21 @@ os.environ["LANGCHAIN_API_KEY"]= langchain_api
 os.environ['LANGCHAIN_PROJECT']= "Prep W Lervis"
 
 
+#---------------------------------------------------------------------------------------------
+
+class CustomEmbeddings(Embeddings):
+    def __init__(self, model_name: str):
+        self.model = SentenceTransformer(model_name)
+
+    def embed_documents(self, documents: list[str]) -> list[list[float]]:
+        return [self.model.encode(d,batch_size=64).tolist() for d in documents]
+
+    def embed_query(self, query: str) -> list[float]:
+        return self.model.encode([query])[0].tolist()
+
+embedding_model = CustomEmbeddings(model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
+
+#------------------------------------------------------------------------------------------------------------
 llm = ChatNVIDIA(model="meta/llama3-70b-instruct", nvidia_api_key = nvidia)
 
 def pdf_rag(file_path, user_input):
@@ -37,7 +52,7 @@ def pdf_rag(file_path, user_input):
 
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     splits = text_splitter.split_documents(docs)
-    vectorstore = Chroma.from_documents(documents=splits, embedding=OpenAIEmbeddings(openai_api_key = openai), persist_directory="./chroma_langchain_db")
+    vectorstore = Chroma.from_documents(documents=splits, embedding=embedding_model, persist_directory="./chroma_langchain_db")
 
     retriever = vectorstore.as_retriever()
 
