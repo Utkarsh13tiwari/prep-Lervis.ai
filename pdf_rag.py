@@ -15,6 +15,9 @@ from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain.schema import Document
 import markdown
 import streamlit as st
+from sentence_transformers import SentenceTransformer
+from langchain.embeddings.base import Embeddings
+
 
 openai = st.secrets.db_credentials.openai
 nvidia = st.secrets.db_credentials.nvidia
