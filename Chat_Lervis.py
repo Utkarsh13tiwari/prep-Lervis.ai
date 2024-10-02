@@ -449,11 +449,11 @@ if user_input:
     if rag_checkbox:
         if selected_option == 'Job Description':
             with col2:
-                with st.spinner("Agent"):
+                with st.spinner("Reading PDF...."):
                     agent_response = pdf_rag(job_des, user_input=user_input)
         else:
             with col2:
-                with st.spinner("Agent"):
+                with st.spinner("Extracting...."):
                     agent_response = webrag(link, user_input)
 
     else:
