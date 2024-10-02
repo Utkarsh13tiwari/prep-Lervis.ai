@@ -60,11 +60,9 @@ def pdf_rag(file_path, user_input):
     retriever = vectorstore.as_retriever()
 
     system_prompt = (
-        "You are an assistant for question-answering tasks. "
-        "Use the following pieces of retrieved context to answer "
-        "the question. If you don't know the answer, say that you "
-        "don't know. Use three sentences maximum and keep the "
-        "answer concise."
+        "You are an assistant for providing study materials for the provided job description. "
+        "Use the following pieces of retrieved context which is job description to answer "
+        "provide with study materials. Always answer questions or doubts related to job  description , and  provide study materials."
         "\n\n"
         "{context}"
     )
