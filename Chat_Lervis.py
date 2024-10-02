@@ -447,6 +447,7 @@ if user_input:
         st.write(f'<div class="message-container"><p class="user-message">{user_input}</p></div>', unsafe_allow_html=True)
     
     if rag_checkbox:
+        st.write("#### Note that the RAG agent is still in development phase and may not work as expected")
         if selected_option == 'Job Description':
             with col2:
                 with st.spinner("Reading PDF...."):
@@ -484,6 +485,12 @@ if user_input:
 
     st.session_state["disabled"] = False 
     st.rerun()
+
+
+
+
+
+
 
 
 
