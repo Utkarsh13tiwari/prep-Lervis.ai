@@ -447,7 +447,7 @@ if user_input:
         st.write(f'<div class="message-container"><p class="user-message">{user_input}</p></div>', unsafe_allow_html=True)
     
     if rag_checkbox:
-        with col2:
+        with col3:
             st.write("#### Note that the RAG agent is still in development phase and may not work as expected")
         if selected_option == 'Job Description':
             with col2:
