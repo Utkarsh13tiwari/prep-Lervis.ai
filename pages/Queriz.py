@@ -36,7 +36,7 @@ from langchain.output_parsers.openai_tools import JsonOutputToolsParser
 from langchain.output_parsers import PydanticOutputParser
 
 
-ICON_BLUE = r"C:\Users\utkar\Downloads\Lervis_logo.png"
+ICON_BLUE = "Lervis_logo.png"
 
 st.logo(ICON_BLUE, icon_image=ICON_BLUE)
 
