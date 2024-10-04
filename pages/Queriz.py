@@ -81,6 +81,7 @@ llm = ChatGroq(
     max_tokens=None,  # Limiting the number of tokens per request
     timeout=None,
     max_retries=2,
+    api_key=GROQ_API_KEY
 )
 
 search = TavilySearchAPIWrapper(tavily_api_key=os.environ["TAVILY_API_KEY"])
