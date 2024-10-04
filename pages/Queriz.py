@@ -141,7 +141,6 @@ row2col1, row2col2 = st.columns(2)
 
 with row1col1:
     container1 = st.container(border=True)
-    container2 = st.container(border=True)
     container1.header(":orange[QuerizRPT]")
 
     uploaded_file = container1.file_uploader("Upload a document")
@@ -284,7 +283,6 @@ with row1col1:
                                 print(f"An unexpected error occurred while invoking LLM: {e}")
 
                     def stream_data():
-                        container2.divider()
                         for word in response.split(" "):
                             yield word + " "
                             time.sleep(0.02)
@@ -327,7 +325,6 @@ with row1col1:
                     response = response.content
 
                 def stream_data():
-                    container2.divider()
                     for word in response.split(" "):
                         yield word + " "
                         time.sleep(0.02)
