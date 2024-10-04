@@ -137,7 +137,7 @@ row2col1, row2col2 = st.columns(2)
 
 with row1col1:
     container1 = st.container(border=True)
-    container1.header("QuerizRPT")
+    container1.header(":orange[QuerizRPT]")
 
     uploaded_file = container1.file_uploader("Upload a document")
 
@@ -332,6 +332,7 @@ with row1col1:
 with row2col1:
     container2 = st.container(border=True)
     if uploaded_file is not None and container1.button("Generate Report"):
+        container1.divider()
         with container1:
             report = generate_report_in_chunks(chunks)
         st.session_state['report_generated'] = True
@@ -339,6 +340,7 @@ with row2col1:
         st.download_button("Download Report", report)
     
     else:
+        container1.divider()
         if st.session_state['report_generated']:
             def stream_data():
                 for word in st.session_state['report_data'].split(" "):
@@ -351,7 +353,7 @@ with row2col1:
 with row1col2:
     container1A = st.container(border=True)
     container2A = st.container(border=True)
-    container1A.header("QuerizGPT")
+    container1A.header(":orange[QuerizGPT]")
     if st.session_state['report_generated']:
         container1A.write("You can now ask questions related to the generated report.")
     with row2col2:
@@ -359,6 +361,7 @@ with row1col2:
 
         with row1col2 and container1A:
             if user_query:
+                container1A.divider()
                 if uploaded_file:
 
                     if st.session_state['report_generated']:
