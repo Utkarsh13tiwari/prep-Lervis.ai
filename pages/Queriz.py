@@ -356,6 +356,8 @@ with row1col2:
     container1A.header(":orange[QuerizGPT]")
     if st.session_state['report_generated']:
         container1A.write("You can now ask questions related to the generated report.")
+    else:
+        container1A.write("General query")
     with row2col2:
         user_query = container1A.chat_input("Ask your question about the report or follow ups:")
 
@@ -369,7 +371,7 @@ with row1col2:
                         report = st.session_state['report_data']
 
                         if total_tokens > 3000:
-                            st.write("Cannot  retrieve more than 3000 tokens. Please refine your query.")
+                            st.write("Cannot  retrieve more than 3000 tokens. Please refine your query and ask general questions as your report is not stored in memory.")
                         
                     if st.session_state['report_generated'] and total_tokens < 3000:
                         query_prompt_template = PromptTemplate(
