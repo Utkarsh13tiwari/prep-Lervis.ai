@@ -4,6 +4,7 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 #import chromadb.api
 #chromadb.api.client.SharedSystemClient.clear_system_cache()
+import chromadb
 
 import os
 import openai
