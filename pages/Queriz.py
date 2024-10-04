@@ -141,6 +141,7 @@ row2col1, row2col2 = st.columns(2)
 
 with row1col1:
     container1 = st.container(border=True)
+    container2 = st.container(border=True)
     container1.header(":orange[QuerizRPT]")
 
     uploaded_file = container1.file_uploader("Upload a document")
