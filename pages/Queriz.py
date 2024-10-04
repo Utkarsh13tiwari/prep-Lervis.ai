@@ -339,10 +339,14 @@ with row2col1:
     container2 = st.container(border=True)
     if uploaded_file is not None and container1.button("Generate Report"):
         container1.divider()
+        
         with container1:
             report = generate_report_in_chunks(chunks)
+        
         st.session_state['report_generated'] = True
         st.session_state['report_data'] = report
+
+        st.markdown(report, unsafe_allow_html=True)
         st.download_button("Download Report", report)
     
     else:
