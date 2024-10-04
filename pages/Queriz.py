@@ -106,8 +106,8 @@ report_prompt_template = PromptTemplate(
 
 agent = create_tool_calling_agent(llm, tools, report_prompt_template)
 memory = ConversationBufferWindowMemory(return_messages=True, memory_key='chat_history', input_key='input', k=1)
-parser = PydanticOutputParser(pydantic_object=agent)
-agent_exe=AgentExecutor(agent=agent, tools=tools, verbose=True ,stream_runnable=False, parser = parser)
+#parser = PydanticOutputParser(pydantic_object=agent)
+agent_exe=AgentExecutor(agent=agent, tools=tools, verbose=True ,stream_runnable=False)
 
     #-----------------------------------------------------------------------------------------------------------------
 
