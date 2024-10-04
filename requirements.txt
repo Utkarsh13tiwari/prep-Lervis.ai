@@ -34,7 +34,7 @@ pipdeptree
 streamlit_mic_recorder
 ffmpeg-python
 ffmpeg
-chromadb==0.4.4
+chromadb
 langchain-groq
 langchain-huggingface
 sentence-transformers
