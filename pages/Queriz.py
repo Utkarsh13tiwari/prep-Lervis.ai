@@ -340,8 +340,8 @@ with row2col1:
         st.download_button("Download Report", report)
     
     else:
-        container1.divider()
         if st.session_state['report_generated']:
+            container1.divider()
             def stream_data():
                 for word in st.session_state['report_data'].split(" "):
                     yield word + " "
