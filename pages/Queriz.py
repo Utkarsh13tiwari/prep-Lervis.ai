@@ -84,7 +84,7 @@ llm = ChatGroq(
     api_key=GROQ_API_KEY
 )
 
-search = TavilySearchAPIWrapper(tavily_api_key=os.environ["TAVILY_API_KEY"])
+search = TavilySearchAPIWrapper(tavily_api_key=tavily)
 tavily_tool = TavilySearchResults(api_wrapper=search)
 tools = [tavily_tool]
 
