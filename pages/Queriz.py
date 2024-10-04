@@ -42,7 +42,7 @@ st.logo(ICON_BLUE, icon_image=ICON_BLUE)
 
 # Set the page configuration
 st.set_page_config(
-    page_title="Prep W Lervis",
+    page_title="Quriz",
     layout="wide",
     page_icon = ICON_BLUE
 ) 
