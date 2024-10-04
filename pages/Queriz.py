@@ -283,7 +283,7 @@ with row1col1:
                                 print(f"An unexpected error occurred while invoking LLM: {e}")
 
                     def stream_data():
-                        container1.divider()
+                        container2.divider()
                         for word in response.split(" "):
                             yield word + " "
                             time.sleep(0.02)
@@ -326,7 +326,7 @@ with row1col1:
                     response = response.content
 
                 def stream_data():
-                    container1.divider()
+                    container2.divider()
                     for word in response.split(" "):
                         yield word + " "
                         time.sleep(0.02)
