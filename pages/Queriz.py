@@ -345,6 +345,7 @@ with row2col1:
                     yield word + " "
                     time.sleep(0.02)
             container1.write(st.session_state['report_data'])
+            st.download_button("Download Report", st.session_state['report_generated'])
 
 
 with row1col2:
