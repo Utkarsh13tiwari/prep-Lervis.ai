@@ -351,7 +351,8 @@ with row1col2:
     container1A = st.container(border=True)
     container2A = st.container(border=True)
     container1A.header("QuerizGPT")
-    container1A.write("You can now ask questions related to the generated report.")
+    if st.session_state['report_generated']:
+        container1A.write("You can now ask questions related to the generated report.")
     with row2col2:
         user_query = container1A.chat_input("Ask your question about the report or follow ups:")
 
