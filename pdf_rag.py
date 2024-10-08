@@ -50,7 +50,7 @@ llm = ChatNVIDIA(model="meta/llama3-70b-instruct", nvidia_api_key = nvidia)
 def pdf_rag(file_path, user_input):
 
     with open("temp_file", "wb") as f:
-            f.write(uploaded_file.getbuffer())
+            f.write(file_path.getbuffer())
 
         
     loader = PyMuPDFLoader("temp_file")
