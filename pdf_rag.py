@@ -48,10 +48,10 @@ embedding_model = CustomEmbeddings(model_name="sentence-transformers/paraphrase-
 llm = ChatNVIDIA(model="meta/llama3-70b-instruct", nvidia_api_key = nvidia)
 
 def pdf_rag(file_path, user_input):
-    #loader = file_path #PyPDFLoader(file_path)
-    #docs = loader.load()
-    plain_text = markdown.markdown(file_path)
-    docs = [Document(page_content=plain_text)]
+    loader = PyPDFLoader(file_path)
+    docs = loader.load()
+    #plain_text = markdown.markdown(file_path)
+    #docs = [Document(page_content=plain_text)]
 
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     splits = text_splitter.split_documents(docs)
