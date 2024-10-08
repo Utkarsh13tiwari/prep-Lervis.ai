@@ -17,6 +17,42 @@ import markdown
 import streamlit as st
 from sentence_transformers import SentenceTransformer
 from langchain.embeddings.base import Embeddings
+from langchain.schema import Document
+from langchain.document_loaders import PyMuPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+from langchain.llms import OpenAI
+from langchain.prompts import PromptTemplate
+from langchain.chains import RetrievalQA
+import streamlit as st
+import os
+from sentence_transformers import SentenceTransformer
+from langchain.embeddings.base import Embeddings
+import time
+import re
+import os
+import openai
+import json
+import streamlit as st
+import requests
+from langchain.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
+from langchain_community.utilities.tavily_search import TavilySearchAPIWrapper
+from langchain.agents import initialize_agent, AgentType
+from langchain_community.tools.tavily_search.tool import TavilySearchResults
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain.agents.output_parsers.openai_tools import OpenAIToolsAgentOutputParser
+from langchain.agents import AgentExecutor,create_tool_calling_agent
+from langchain_core.utils.function_calling import format_tool_to_openai_function
+from langchain.agents.format_scratchpad.openai_tools import format_to_openai_tool_messages
+from langchain.memory import ConversationBufferWindowMemory
+from langchain_core.messages import HumanMessage, AIMessage
+from langchain.callbacks import get_openai_callback
+import time
+#from langchain_google_vertexai import ChatVertexAI
+from langchain_groq import ChatGroq
+from langchain.output_parsers.openai_tools import JsonOutputToolsParser
+from langchain.output_parsers import PydanticOutputParser
 
 
 openai = st.secrets.db_credentials.openai
@@ -50,10 +86,10 @@ llm = ChatNVIDIA(model="meta/llama3-70b-instruct", nvidia_api_key = nvidia)
 def pdf_rag(file_path, user_input):
 
     if file_path is not None:
-        with open("temp_file.pdf", "wb") as f:
+        with open("temp_file", "wb") as f:
             f.write(file_path.getbuffer())
 
-    loader = PyMuPDFLoader("temp_file.pdf")
+    loader = PyMuPDFLoader("temp_file")
     docs = loader.load()
     #plain_text = markdown.markdown(file_path)
     #docs = [Document(page_content=plain_text)]
@@ -84,7 +120,7 @@ def pdf_rag(file_path, user_input):
     rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
     results = rag_chain.invoke({"input": user_input})
-    if os.path.exists("temp_file.pdf"):
-            os.remove("temp_file.pdf")
+    if os.path.exists("temp_file"):
+            os.remove("temp_file")
 
     return results['answer']
