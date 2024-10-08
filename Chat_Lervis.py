@@ -452,7 +452,7 @@ if user_input:
         if selected_option == 'Job Description':
             with col2:
                 with st.spinner("Reading PDF...."):
-                    agent_response = pdf_rag(job_des, user_input=user_input)
+                    agent_response = pdf_rag(job_description, user_input=user_input)
         else:
             with col2:
                 with st.spinner("Extracting...."):
