@@ -49,10 +49,10 @@ llm = ChatNVIDIA(model="meta/llama3-70b-instruct", nvidia_api_key = nvidia)
 
 def pdf_rag(file_path, user_input):
 
-    with open("temp_file.pdf", "wb") as f:
+    if file_path is not None:
+        with open("temp_file.pdf", "wb") as f:
             f.write(file_path.getbuffer())
 
-        
     loader = PyMuPDFLoader("temp_file.pdf")
     docs = loader.load()
     #plain_text = markdown.markdown(file_path)
