@@ -48,7 +48,12 @@ embedding_model = CustomEmbeddings(model_name="sentence-transformers/paraphrase-
 llm = ChatNVIDIA(model="meta/llama3-70b-instruct", nvidia_api_key = nvidia)
 
 def pdf_rag(file_path, user_input):
-    loader = PyPDFLoader(file_path)
+
+    with open("temp_file", "wb") as f:
+            f.write(uploaded_file.getbuffer())
+
+        
+    loader = PyMuPDFLoader("temp_file")
     docs = loader.load()
     #plain_text = markdown.markdown(file_path)
     #docs = [Document(page_content=plain_text)]
@@ -79,5 +84,7 @@ def pdf_rag(file_path, user_input):
     rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
     results = rag_chain.invoke({"input": user_input})
+    if os.path.exists("temp_file.pdf"):
+            os.remove("temp_file.pdf")
 
     return results['answer']
